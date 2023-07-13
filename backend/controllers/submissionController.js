@@ -1,0 +1,55 @@
+const asyncHandler = require("express-async-handler");
+const Question = require("../models/questionSchema");
+const mongoose = require("mongoose");
+const FormData = require("form-data");
+const axios = require("axios");
+
+//IMPORTATNT TO HAVE DELAY IN CHECKING STATUS OF A SUBMISSION
+const delay = (ms = 4000) => new Promise((r) => setTimeout(r, ms));
+//delay of 2s
+/////////////////
+
+//submiting a solution
+exports.submitSolution = asyncHandler(async (req, res) => {
+  const { source, compilerId, compilerVersionId } = req.body;
+  const { questionId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(questionId)) {
+    res.status(400);
+    throw new Error("Please enter a valid questionID ");
+  }
+
+  let question = await Question.findById(questionId);
+
+  if (!question) {
+    res.status(400);
+    throw new Error("Question not found");
+  }
+
+  let bodyFormData = new FormData();
+  bodyFormData.append("problemId", question.problemId);
+  bodyFormData.append("source", source);
+  bodyFormData.append("compilerId", compilerId);
+  bodyFormData.append("compilerVersionId", compilerVersionId);
+
+  const { data: submissionData } = await axios({
+    method: "post",
+    url: `https://4160a1d9.problems.sphere-engine.com/api/v4/submissions?access_token=${process.env.SE_API_TOKEN}`,
+    data: bodyFormData,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+  console.log(submissionData);
+
+  await delay();
+
+  const { data: submissionStatus } = await axios({
+    method: "get",
+    url: `https://4160a1d9.problems.sphere-engine.com/api/v4/submissions/${submissionData.id}?access_token=${process.env.SE_API_TOKEN}`,
+  });
+
+  console.log(submissionData);
+  res
+    .status(200)
+    .json({ submissionStatus, message: "Question Submitted successfully" });
+});
