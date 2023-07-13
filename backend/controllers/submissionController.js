@@ -3,6 +3,7 @@ const Question = require("../models/questionSchema");
 const mongoose = require("mongoose");
 const FormData = require("form-data");
 const axios = require("axios");
+const sendEmail = require("../config/nodemailer");
 
 //IMPORTATNT TO HAVE DELAY IN CHECKING STATUS OF A SUBMISSION
 const delay = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
@@ -57,6 +58,12 @@ exports.submitSolution = asyncHandler(async (req, res) => {
     }
   }
 
+  //nodemailer
+  sendEmail({
+    email: req.user.email,
+    subject: "Code Submission",
+    message: `Question Submitted successfully status: ${submissionStatus}`,
+  });
   res.status(200).json({
     status: submissionStatus,
     message: "Question Submitted successfully",

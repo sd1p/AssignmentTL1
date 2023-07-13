@@ -4,6 +4,6 @@ const { submitSolution } = require("../controllers/submissionController");
 
 const router = express.Router();
 
-router.route("/:questionId").post(submitSolution);
+router.route("/:questionId").post(isAuthenticated, submitSolution);
 
 module.exports = router;

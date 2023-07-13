@@ -7,6 +7,7 @@ const { routeNotFound, errorHandler } = require("./middleware/errorMiddleware");
 const userRoutes = require("./Routes/userRoutes");
 const questionRoutes = require("./Routes/questionRoutes");
 const submissionRoutes = require("./Routes/submissionRoutes");
+const sendEmail = require("./config/nodemailer");
 const app = express();
 
 //db config
@@ -23,7 +24,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/submission", submissionRoutes);
 
-//a open for checking if api is running
+//a route for checking if api is running
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
