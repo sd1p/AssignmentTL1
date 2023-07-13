@@ -24,7 +24,7 @@ app.use("/api/question", questionRoutes);
 app.use("/api/submission", submissionRoutes);
 
 app.get("/", (req, res) => {
-  res.json({ message: "hey there" });
+  res.json({ message: "Server is running" });
 });
 
 //error handling
