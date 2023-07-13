@@ -3,7 +3,7 @@
 To get started with the server, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/sd1p/AssignmentTL1`
-2. Navigate to the project directory: `cd DashChat`
+2. Navigate to the project directory: `cd backend`
 3. Install the dependencies using `npm install`.
 4. Start the server in development mode using `npm run dev`.
 5. The server will be running at `http://localhost:5000`.
