@@ -121,7 +121,7 @@ exports.deleteQuestionsById = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `Deleted question ${questionId}` });
 });
 
-//createing testcases
+//createing test cases
 exports.addTestCase = asyncHandler(async (req, res) => {
   let { input = "", output, judgeId = 1 } = req.body;
   const { questionId } = req.params;

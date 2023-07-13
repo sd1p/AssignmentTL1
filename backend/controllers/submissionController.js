@@ -42,6 +42,7 @@ exports.submitSolution = asyncHandler(async (req, res) => {
   });
 
   let submissionStatus;
+
   //waiting for 10s max
   //fetching status of submission every 2 seconds
   for (let i = 0; i < 5; i++) {

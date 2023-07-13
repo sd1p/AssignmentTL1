@@ -12,7 +12,7 @@ const questionSchema = new mongoose.Schema({
     required: [true, "Please enter a question discription."],
   },
 
-  //not user defined
+  //server defined
   masterjudgeId: {
     type: Number,
     default: 999,
