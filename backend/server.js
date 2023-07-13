@@ -23,6 +23,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/submission", submissionRoutes);
 
+//a open for checking if api is running
 app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
