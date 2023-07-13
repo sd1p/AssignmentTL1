@@ -188,7 +188,8 @@ exports.getQuestionsById = asyncHandler(async (req, res) => {
 
 //finding questions with pagination.
 exports.getPaginatedQuestions = asyncHandler(async (req, res) => {
-  const { resultPerPage, skip } = req.query;
+  let { page, resultPerPage = 4 } = req.query;
+  let skip = (page - 1) * resultPerPage;
   const question = await Question.find().limit(resultPerPage).skip(skip);
 
   if (question) {
